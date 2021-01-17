@@ -18,3 +18,7 @@ Maintenance of the virtual environment:
 - installation of an experimental dependency: `pip install <dependency>`
 - update of the dependency list: `pip freeze > requirements.txt`
 - deactivation: `deactivate`
+
+To run the tests, call `make test`.
+
+To build the documentation, invoke `make html`.
