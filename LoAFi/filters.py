@@ -2,9 +2,18 @@
 
 
 class IncludeAll(object):
-    """A filter returning the input unchanged."""
+    """A filter including any input."""
     def __init__(self):
         super(IncludeAll, self).__init__()
 
     def apply(self, input):
-        return input
+        return True, input
+
+
+class ExcludeAll(object):
+    """A filter excluding any input."""
+    def __init__(self):
+        super(ExcludeAll, self).__init__()
+
+    def apply(self, input):
+        return True, None

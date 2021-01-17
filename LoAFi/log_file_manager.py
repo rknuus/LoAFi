@@ -1,7 +1,9 @@
 # Copyright (C) 2021 R. Knaus
 
-from LoAFi.filters import IncludeAll
+from LoAFi.filters import ExcludeAll, IncludeAll
 from LoAFi.raw_file_access import RawFileAccess
+
+import LoAFi
 
 
 class LogFileManager(object):
@@ -12,11 +14,11 @@ class LogFileManager(object):
         self.filters_ = []
 
     def list_filters(self):
-        return ['IncludeAll']
+        return [ExcludeAll.__name__, IncludeAll.__name__]
 
     def add_filter(self, filter_type):
-        assert filter_type == 'IncludeAll'
-        self.filters_.append(IncludeAll())
+        filter_class = getattr(LoAFi.filters, filter_type)
+        self.filters_.append(filter_class())
         return len(self.filters_)
 
     def filter_lines(self):
@@ -25,9 +27,8 @@ class LogFileManager(object):
         return (line for line in lines_or_nones if line)
 
     def filter_line_(self, line):
-        included_line = ''
         for filter in self.filters_:
-            included_line = filter.apply(line)
-            if included_line:
-                return included_line
+            matched, matched_line = filter.apply(line)
+            if matched:
+                return matched_line
         return None

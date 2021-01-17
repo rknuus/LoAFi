@@ -51,3 +51,20 @@ def test_with_include_all_filter_all_lines_are_included():
         lines = list(manager.filter_lines())
     assert 'foo' in lines
     assert 'bar' in lines
+
+
+def test_for_two_competing_filters_the_first_matching_one_wins():
+    with generate_file('file.log', 'foo\nbar') as file:
+        manager = LogFileManager(logfile=file)
+        manager.add_filter('IncludeAll')
+        manager.add_filter('ExcludeAll')
+        matching_lines = list(manager.filter_lines())
+
+        manager = LogFileManager(logfile=file)
+        manager.add_filter('ExcludeAll')
+        manager.add_filter('IncludeAll')
+        non_matching_lines = list(manager.filter_lines())
+    assert 'foo' in matching_lines
+    assert 'bar' in matching_lines
+    assert 'foo' not in non_matching_lines
+    assert 'bar' not in non_matching_lines
