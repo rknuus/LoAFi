@@ -82,6 +82,16 @@ Use case validation
 ===================
 %%TODO(KNR)%%
 
+Filtering
+---------
+The filters shall be applied in the order they are created by the user. The
+first matching filter shall be applied and no further filters shall be
+applied. As a start this works for reducing filters, but requires a revisit
+for mapping filters. Without in depth analysis this feels as if it should
+provide the necessary flexibility at reasonable complexity.
+
+By default all lines are excluded.
+
 References
 ==========
 * "Righting Software" by Juwal Loewy

@@ -10,10 +10,12 @@ class RawFileAccess(object):
     def lines(self):
         """Returns a generator to iterate over all lines.
 
+        Trims trailing newlines, because lines are separate strings.
+
         Currently we don't cache the lines, because right now speed is not our
         main concern and keeping the entire file in memory might consume too
         much memory.
         """
         with open(self.file_) as file:
             for line in file:
-                yield line
+                yield line.rstrip('\n')
