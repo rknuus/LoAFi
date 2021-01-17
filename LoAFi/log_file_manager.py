@@ -22,9 +22,9 @@ class LogFileManager(object):
         return len(self.filters_)
 
     def filter_lines(self):
-        lines_or_nones = (self.filter_line_(line)
-                          for line in self.file_access_.lines())
-        return (line for line in lines_or_nones if line)
+        filtered_lines_or_nones = (self.filter_line_(line)
+                                   for line in self.file_access_.lines())
+        return (line for line in filtered_lines_or_nones if line)
 
     def filter_line_(self, line):
         for filter in self.filters_:
