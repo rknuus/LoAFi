@@ -17,6 +17,8 @@ class LogFileManager(object):
         return [ExcludeAll.__name__, IncludeAll.__name__]
 
     def add_filter(self, filter_type):
+        if filter_type not in self.list_filters():
+            raise ValueError('Filter type {} is unknown.'.format(filter_type))
         filter_class = getattr(LoAFi.filters, filter_type)
         self.filters_.append(filter_class())
         return len(self.filters_)
