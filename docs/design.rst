@@ -57,7 +57,7 @@ Above volatilities lead to the following decomposition:
 
   package "Business logic layer" {
     [LogFileManager]
-    [FilterEngine]
+    [FilteringEngine]
   }
 
   package "Resource access layer" {
@@ -73,6 +73,10 @@ Above volatilities lead to the following decomposition:
   [FilterEngine] -down-> [RawFileAccess]
   [TogaClient] -right-> [Pub/Sub]
   [LogFileManager] -right-> [Pub/Sub]
+
+The `FilteringEngine` might be integrated into `LogFileManager` if the
+separation leaves `LogFileManager` with no other responsibility than
+forwarding all requests to the `FilteringEngine`.
 
 Use case validation
 ===================
