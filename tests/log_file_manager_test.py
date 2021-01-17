@@ -40,8 +40,8 @@ def test_add_filter_returns_filter_instance_id():
 def test_without_any_filter_all_lines_are_excluded():
     with generate_file('file.log', 'foo') as file:
         manager = LogFileManager(logfile=file)
-        with pytest.raises(StopIteration):
-            next(manager.filter_lines())
+        lines = list(manager.filter_lines())
+    assert len(lines) == 0
 
 
 def test_with_include_all_filter_all_lines_are_included():
