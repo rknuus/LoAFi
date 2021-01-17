@@ -76,3 +76,12 @@ def test_for_two_competing_filters_the_first_matching_one_wins():
     assert 'bar' in matching_lines
     assert 'foo' not in non_matching_lines
     assert 'bar' not in non_matching_lines
+
+
+def test_passing_parameter_to_parameterized_filter():
+    with generate_file('file.log', 'foo\nbar') as file:
+        manager = LogFileManager(logfile=file)
+        manager.add_filter('IncludeMatch', '^foo$')
+        lines = list(manager.filter_lines())
+    assert 'foo' in lines
+    assert 'bar' not in lines

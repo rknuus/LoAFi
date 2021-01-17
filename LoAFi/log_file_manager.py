@@ -1,6 +1,6 @@
 # Copyright (C) 2021 R. Knaus
 
-from LoAFi.filters import ExcludeAll, IncludeAll
+from LoAFi.filters import ExcludeAll, IncludeAll, IncludeMatch
 from LoAFi.raw_file_access import RawFileAccess
 
 import LoAFi
@@ -19,21 +19,25 @@ class LogFileManager(object):
         Per filter the following information are returned:
         - the filter name serves as dict key
         - the docstring of the filter class explains the usage
-        - an array of parameter name and parameter help pairs
-          describe the expected parameters of the filter
+        - an dict mapping parameter name to parameter help describes the
+          expected parameters of the filter
         """
+        # TODO(KNR): DRY
         return {ExcludeAll.__name__: {
                     'help': ExcludeAll.__doc__,
                     'parameters': ExcludeAll.__parameters__},
                 IncludeAll.__name__: {
                     'help': IncludeAll.__doc__,
-                    'parameters': IncludeAll.__parameters__}}
+                    'parameters': IncludeAll.__parameters__},
+                IncludeMatch.__name__: {
+                    'help': IncludeMatch.__doc__,
+                    'parameters': IncludeMatch.__parameters__}}
 
-    def add_filter(self, filter_type):
+    def add_filter(self, filter_type, *parameters):
         if filter_type not in self.list_filters():
             raise ValueError('Filter type {} is unknown.'.format(filter_type))
         filter_class = getattr(LoAFi.filters, filter_type)
-        self.filters_.append(filter_class())
+        self.filters_.append(filter_class(*parameters))
         return len(self.filters_)
 
     def filter_lines(self):
