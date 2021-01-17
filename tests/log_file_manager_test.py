@@ -37,6 +37,14 @@ def test_add_filter_returns_filter_instance_id():
     assert isinstance(instance_id, int)
 
 
+def test_add_unknown_filter_type_raises_exception():
+    manager = LogFileManager(logfile=None)
+    with pytest.raises(ValueError) as exception:
+        manager.add_filter('ANonExistingFilterType')
+    assert ('Filter type ANonExistingFilterType is unknown.'
+            in str(exception.value))
+
+
 def test_without_any_filter_all_lines_are_excluded():
     with generate_file('file.log', 'foo') as file:
         manager = LogFileManager(logfile=file)
