@@ -2,7 +2,10 @@
 
 
 class IncludeAll(object):
-    """A filter including any input."""
+    """Include any input."""
+
+    __parameters__ = []
+
     def __init__(self):
         super(IncludeAll, self).__init__()
 
@@ -11,7 +14,10 @@ class IncludeAll(object):
 
 
 class ExcludeAll(object):
-    """A filter excluding any input."""
+    """Exclude any input."""
+
+    __parameters__ = []
+
     def __init__(self):
         super(ExcludeAll, self).__init__()
 

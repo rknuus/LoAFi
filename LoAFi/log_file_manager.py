@@ -14,7 +14,20 @@ class LogFileManager(object):
         self.filters_ = []
 
     def list_filters(self):
-        return [ExcludeAll.__name__, IncludeAll.__name__]
+        """Returns a list of supported filters.
+
+        Per filter the following information are returned:
+        - the filter name serves as dict key
+        - the docstring of the filter class explains the usage
+        - an array of parameter name and parameter help pairs
+          describe the expected parameters of the filter
+        """
+        return {ExcludeAll.__name__: {
+                    'help': ExcludeAll.__doc__,
+                    'parameters': ExcludeAll.__parameters__},
+                IncludeAll.__name__: {
+                    'help': IncludeAll.__doc__,
+                    'parameters': IncludeAll.__parameters__}}
 
     def add_filter(self, filter_type):
         if filter_type not in self.list_filters():
