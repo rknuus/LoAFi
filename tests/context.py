@@ -6,4 +6,4 @@ import sys
 sys.path.insert(0, path.abspath(path.join(path.dirname(__file__), '..')))
 
 from LoAFi.log_file_manager import LogFileManager  # noqa: F401
-from LoAFi.filters import IncludeMatch  # noqa: F401
+from LoAFi.filters import IncludeMatch, SortByMatch  # noqa: F401
