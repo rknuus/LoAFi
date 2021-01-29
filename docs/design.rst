@@ -69,8 +69,8 @@ Above volatilities lead to the following decomposition:
   }
 
   [TogaClient] -down-> [LogFileManager]
-  [LogFileManager] -down-> [FilterEngine]
-  [FilterEngine] -down-> [RawFileAccess]
+  [LogFileManager] -down-> [FilteringEngine]
+  [FilteringEngine] -down-> [RawFileAccess]
   [TogaClient] -right-> [Pub/Sub]
   [LogFileManager] -right-> [Pub/Sub]
 
