@@ -1,3 +1,5 @@
+Note to myself: see https://github.com/rknuus/LogInsight
+
 ###########
 About LoAFi
 ###########
